@@ -11,7 +11,6 @@ target_y = float(input("目標Y座標(mm)を入力してください: "))
 target_z = float(input("目標Z座標(mm)を入力してください: "))
 flag = 0 #y座標が負の時のフラグ
 
-
 if target_y == 0:
     print("Y座標が0なので終了します")
     exit()
@@ -28,9 +27,9 @@ print(f"\n目標位置: ({target_x}mm, {target_y}mm, {target_z}mm)") #目標位�
 print(f"アームの長さ: Arm1 = {arm1}mm, Arm2 = {arm2}mm") #アームの長さを確認
 
 #y座標が負の時の迂回ルート
-#if target_y < 0: 
-#    target_y = -1 * target_y
-#    flag = 1
+if target_y < 0: 
+    target_y = -1 * target_y
+    flag = 1
 
 xz_distance = math.sqrt(target_x**2 + target_z**2) #目標位置までのxz平面での直線距離を計算
 distance = math.sqrt(xz_distance**2 + target_y**2) #目標位置までの直線距離を計算
@@ -49,6 +48,9 @@ elif distance == 0:
 tan_theta0 = target_x / target_z
 cos_theta3 = (distance / 2) / arm1
 tan_theta4 = target_y / distance
+
+if flag == 1: #y座標が負の時の補正
+    tan_theta4 = -1 * tan_theta4   #イマココ
 
 print("\n=== 下の方の解 ===")
 theta0_lower = math.degrees(math.atan(tan_theta0))
