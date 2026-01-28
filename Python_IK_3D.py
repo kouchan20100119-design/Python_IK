@@ -1,23 +1,52 @@
 import math
 
-arm1 = float(input("アームの長さを入力してください: "))  
+# 入力値を取得する関数
+def get_float_input(prompt):
+    while True:
+        try:
+            value = input(prompt)
+            if value.strip() == "":
+                print("入力してください")
+                continue
+            return float(value)
+        except ValueError:
+            print("無効な値です。数字を入力してください")
+
+# アームの長さを入力（0以下はNG）
+while True:
+    arm1 = get_float_input("アームの長さを入力してください: ")
+    if arm1 <= 0:
+        print("アームの長さは0より大きい値を入力してください")
+        continue
+    break
+
 arm2 = arm1 #arm1とarm2の長さは同じ
-target_x = float(input("目標X座標(mm)を入力してください: ")) 
-target_y = float(input("目標Y座標(mm)を入力してください: "))
-target_z = float(input("目標Z座標(mm)を入力してください: "))
-flag = 0 #y座標が負の時のフラグ
 
-if target_y == 0:
-    print("Y座標が0なので終了します")
-    exit()
-
-if target_x == 0:
-    print("X座標が0なので終了します")
-    exit()
+# 座標を入力（すべてが0の場合はNG）
+while True:
+    target_x = get_float_input("目標X座標(mm)を入力してください: ") 
+    target_y = get_float_input("目標Y座標(mm)を入力してください: ")
+    target_z = get_float_input("目標Z座標(mm)を入力してください: ")
     
-if target_z == 0:
-    print("Z座標が0なので終了します")
-    exit()
+    if target_x == 0 and target_y == 0 and target_z == 0:
+        print("座標がすべて0なので、別の値を入力してください")
+        continue
+    
+    if target_y == 0:
+        print("Y座標が0なので再入力してください")
+        continue
+
+    if target_x == 0:
+        print("X座標が0なので再入力してください")
+        continue
+        
+    if target_z == 0:
+        print("Z座標が0なので再入力してください")
+        continue
+    
+    break
+
+flag = 0 #y座標が負の時のフラグ
 
 print(f"\n目標位置: ({target_x}mm, {target_y}mm, {target_z}mm)") #目標位置の確認
 print(f"アームの長さ: Arm1 = {arm1}mm, Arm2 = {arm2}mm") #アームの長さを確認
