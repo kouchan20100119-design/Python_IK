@@ -43,7 +43,7 @@ elif distance == 0:
 cos_theta3 = (distance / 2) / arm1
 theta3 = math.degrees(math.acos(cos_theta3))
 tan_theta4 = target_x / target_y 
-    
+
 if flag == 1:
     print("\n=== 下の方の解 (Elbow Down) ===")
     theta1 = theta3 +  math.degrees(math.atan(tan_theta4))
